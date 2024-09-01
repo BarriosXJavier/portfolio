@@ -1,19 +1,33 @@
+import { imageConfigDefault } from "next/dist/shared/lib/image-config";
 import { gridItems } from "../../../../data";
 import { BentoGrid } from "../bento-grid";
 import { BentoGridItem } from "../bento-grid";
-
 
 const Grid = () => {
   return (
     <section id="#about">
       <BentoGrid>
         {gridItems.map(
-          (item) => (
+          ({
+            id,
+            title,
+            titleClassName,
+            className,
+            img,
+            spareImg,
+            imgClassName,
+            description,
+          }) => (
             <BentoGridItem
-              id={item.id}
-              key={item.id}
-              title={item.title}
-              description={item.description}
+              id={id}
+              key={id}
+              title={title}
+              description={description}
+              className={className}
+              img={img}
+              titleClassName={titleClassName}
+              spareImg={spareImg}
+              imgClassName={imgClassName}
             />
           )
         )}
