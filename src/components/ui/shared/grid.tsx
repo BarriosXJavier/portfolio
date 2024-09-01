@@ -1,10 +1,25 @@
+import { gridItems } from "../../../../data";
 import { BentoGrid } from "../bento-grid";
 import { BentoGridItem } from "../bento-grid";
 
+
 const Grid = () => {
-  return <section>
-    
-  </section>;
+  return (
+    <section id="#about">
+      <BentoGrid>
+        {gridItems.map(
+          (item) => (
+            <BentoGridItem
+              id={item.id}
+              key={item.id}
+              title={item.title}
+              description={item.description}
+            />
+          )
+        )}
+      </BentoGrid>
+    </section>
+  );
 };
 
 export default Grid;
