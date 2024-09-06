@@ -2,6 +2,7 @@ import HeroSection from "@/components/ui/shared/herosection";
 import { FloatingNav } from "@/components/ui/floating-nav";
 import { HomeIcon } from "lucide-react";
 import Grid from "@/components/ui/shared/grid";
+import RecentProjects from "@/components/ui/shared/recent-projects";
 
 
 export default function Home () {
@@ -15,6 +16,7 @@ export default function Home () {
       <div className="max-w-7xl w-full">
         <HeroSection />
         <Grid />
+        <RecentProjects />
       </div>
       
     </main>
