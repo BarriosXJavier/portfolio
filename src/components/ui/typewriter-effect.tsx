@@ -42,7 +42,7 @@
           }
         );
       }
-    }, [isInView]);
+    }, [animate, isInView]);
 
     const renderWords = () => {
       return (

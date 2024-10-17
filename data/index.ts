@@ -1,14 +1,14 @@
 export const navItems = [
   { name: "About Me", link: "#about" },
   { name: "Projects", link: "#projects" },
-  { name: "Contact", link: "#contact" },
+  { name: "Contact", link: "#footer" },
 ];
 
 export const projects = [
   {
     id: 1,
     title: "TradeHub",
-    des: "Easily manage and view your trades with a user-friendly dashboard",
+    des: "Easily manage your business with a user-friendly dashboard",
     img: "/tradehub.png",
     iconLists: [
       "/next.svg",
@@ -18,7 +18,7 @@ export const projects = [
       "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg",
       "/clerk.avif",
     ],
-    link: "https://github.com/adrianhajdin?tab=repositories",
+    link: "https://github.com/BarriosXJavier?tab=repositories",
   },
 ];
 

@@ -45,26 +45,38 @@ const CurrentProject = () => {
           <Image
             src="/groove.png"
             alt="Groove V1 Website Preview"
-            width={500}
-            height={500}
             className="rounded-md w-full h-full object-cover"
+            height={400} // Add appropriate height
+            width={600}  // Add appropriate width
           />
           <div className="flex justify-center space-x-4 mt-4">
-            <img
+            <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg"
               alt="Next.js"
               className="w-8 h-8"
+              height={32} // Add appropriate height
+              width={32}  // Add appropriate width
             />
-            <img
+            <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
               alt="Tailwind CSS"
               className="w-8 h-8"
+              height={32} // Add appropriate height
+              width={32}  // Add appropriate width
             />
-            <img src="/clerk.avif" alt="Clerk" className="w-8 h-8" />
-            <img
+            <Image
+              src="/clerk.avif"
+              alt="Clerk"
+              className="w-8 h-8"
+              height={32} // Add appropriate height
+              width={32}  // Add appropriate width
+            />
+            <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
               alt="MongoDB"
               className="w-8 h-8"
+              height={32} // Add appropriate height
+              width={32}  // Add appropriate width
             />
           </div>
           <div>

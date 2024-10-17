@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import ShimmerButton from "../shimmer-button";
 import { Spotlight } from "../spotlight";
 import { TextGenerateEffect } from "../textgenEffect";
@@ -66,10 +67,12 @@ const HeroSection = () => {
                     marginLeft: "-20px",
                   }}
                 >
-                  <img
+                  <Image
                     src={src}
                     className="w-full h-full"
                     alt={`Icon ${index + 1}`}
+                    height={24}
+                    width={24}
                   />
                 </div>
               ))}
@@ -77,10 +80,12 @@ const HeroSection = () => {
 
             {/* Static JavaScript Icon in the center */}
             <div className="absolute w-16 h-16 sm:w-20 sm:h-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20">
-              <img
+              <Image
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
                 className="w-full h-full"
                 alt="JavaScript Icon"
+                height={24}
+                width={24}
               />
             </div>
           </div>

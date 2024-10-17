@@ -1,6 +1,8 @@
+import Image from "next/image";
+
 const Footer = () => {
   return (
-    <footer className="py-12 px-6 font-sans tracking-wide">
+    <footer className="py-12 px-6 font-sans tracking-wide" id="footer">
       <div className="flex flex-col items-center gap-6">
         <ul className="flex flex-wrap justify-center gap-x-7 gap-4">
           <li>
@@ -9,7 +11,13 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src="/git.svg" alt="GitHub" className="w-6 h-6" />
+              <Image
+                src="/git.svg"
+                alt="GitHub"
+                className="w-6 h-6"
+                height={24}
+                width={24}
+              />
             </a>
           </li>
           <li>
@@ -18,12 +26,24 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src="/link.svg" alt="LinkedIn" className="w-6 h-6" />
+              <Image
+                src="/link.svg"
+                alt="LinkedIn"
+                className="w-6 h-6"
+                height={24}
+                width={24}
+              />
             </a>
           </li>
           <li id="#contact">
             <a href="mailto:muriithid05@gmail.com">
-              <img src="/mail.png" alt="Email" className="w-6 h-6" />
+              <Image
+                src="/mail.png"
+                alt="Email"
+                className="w-6 h-6"
+                height={24}
+                width={24}
+              />
             </a>
           </li>
         </ul>
