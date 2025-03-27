@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -6,7 +7,7 @@ const Footer = () => {
       <div className="flex flex-col items-center gap-6">
         <ul className="flex flex-wrap justify-center gap-x-7 gap-4">
           <li>
-            <a
+            <Link
               href="https://github.com/BarriosXJavier"
               target="_blank"
               rel="noopener noreferrer"
@@ -18,10 +19,10 @@ const Footer = () => {
                 height={24}
                 width={24}
               />
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="https://linkedin.com/in/maksim404"
               target="_blank"
               rel="noopener noreferrer"
@@ -33,10 +34,10 @@ const Footer = () => {
                 height={24}
                 width={24}
               />
-            </a>
+            </Link>
           </li>
           <li id="#contact">
-            <a href="mailto:muriithid05@gmail.com">
+            <Link href="mailto:muriithid05@gmail.com">
               <Image
                 src="/mail.png"
                 alt="Email"
@@ -44,15 +45,13 @@ const Footer = () => {
                 height={24}
                 width={24}
               />
-            </a>
+            </Link>
           </li>
         </ul>
 
         <hr className="border-gray-500 w-full" />
-
         <div className="text-center text-purple text-lg flex flex-col">
-          <p>&copy;{new Date().getFullYear()} David Muriithi</p>
-          <p>All rights reserved</p>
+          <p>&copy;{new Date().getFullYear()} </p>
         </div>
       </div>
     </footer>
