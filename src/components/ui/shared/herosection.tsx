@@ -1,102 +1,99 @@
 "use client";
 
-import Image from "next/image";
-import ShimmerButton from "../shimmer-button";
-import { Spotlight } from "../spotlight";
-import { TextGenerateEffect } from "../textgenEffect";
-import Link from "next/link";
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { Link as ScrollLink } from "react-scroll";
 
-const words =
-  "Hi there! 👋🏽 I'm David. I build fast, accessible web experiences. Let’s make your ideas a reality!";
-
-const HeroSection = () => {
+export function HeroSection() {
   return (
-    <section className="">
-      <div className="">
-        <Spotlight
-          className="-t-40 -left-10 md:-left-32 md:-top-20 h-screen"
-          fill="white"
-        />
-        <Spotlight
-          className="t-10 -left-full h-[80vh] w-[50vw]"
-          fill="purple"
-        />
-        <Spotlight className="t-28 left-80 h-[80vh] w-[50vw]" fill="blue" />
+    <section
+      id="hero"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16"
+    >
+      <div className="absolute inset-0 w-full h-full bg-grid-small-white/[0.2] -z-10" />
+      <div className="absolute inset-0 flex items-center justify-center -z-10">
+        <div className="h-[400px] w-[400px] rounded-full bg-primary/20 animate-image-glow blur-2xl" />
       </div>
-      <div className="h-screen w-full dark:bg-black-100 bg-white dark:bg-grid-white/[0.05] bg-grid-black/[0.2] flex items-center justify-center absolute top-0 left-0">
-        {/* Radial gradient for the container to give a faded look */}
-        <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
-      </div>
-      <div className="flex justify-center relative my-10 z-10">
-        <div className="max-w-[90vw] sm:max-w-xl md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
-          <div className="text-center text-[18px] sm:text-[22px] md:text-3xl lg:text-4xl mt-5">
-            <TextGenerateEffect words={words} />
-          </div>
 
-          {/* Circular Layout for rotating icons */}
-          <div className="relative w-80 h-80 sm:w-96 sm:h-96 mx-auto mt-9">
-            {/* Rotating container for the outer icons */}
-            <div className="relative w-full h-full animate-spin-slow-reverse">
-              {[
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg",
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg",
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg",
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg",
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bun/bun-original.svg",
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg",
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg",
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg",
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
-                "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg",
-              ].map((src, index, array) => (
-                <div
-                  key={index}
-                  className="absolute w-10 h-10 sm:w-12 sm:h-12"
-                  style={{
-                    transform: `rotate(${
-                      (index / array.length) * 360
-                    }deg) translate(150px) rotate(-${
-                      (index / array.length) * 360
-                    }deg)`,
-                    top: "50%",
-                    left: "50%",
-                    marginTop: "-20px",
-                    marginLeft: "-20px",
-                  }}
-                >
-                  <Image
-                    src={src}
-                    className="w-full h-full"
-                    alt={`Icon ${index + 1}`}
-                    height={24}
-                    width={24}
-                  />
-                </div>
-              ))}
-            </div>
+      <div className="container max-w-5xl mx-auto px-8 py-12 relative z-10">
+        <div className="text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+              Full-Stack Developer
+            </span>
+          </motion.div>
 
-            {/* Static JavaScript Icon in the center */}
-            <div className="absolute w-16 h-16 sm:w-20 sm:h-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20">
-              <Image
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
-                className="w-full h-full"
-                alt="JavaScript Icon"
-                height={24}
-                width={24}
-              />
-            </div>
-          </div>
+          <motion.h1
+            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-balance"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Crafting digital <span className="text-primary">experiences</span>{" "}
+            with code
+          </motion.h1>
 
-          <Link href="#about" className="mt-4 max-md:mt-10">
-            <ShimmerButton title="View My Work" handleClick={() => {}} />
-          </Link>
+          <motion.p
+            className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            I build modern, interactive web applications with a focus on user
+            experience, accessibility, and performance.
+          </motion.p>
+
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Button size="lg" asChild>
+              <ScrollLink
+                to="projects"
+                spy={true}
+                smooth={true}
+                offset={-50}
+                duration={500}
+              >
+                View My Work
+              </ScrollLink>
+            </Button>
+            {/*<Button variant="outline" size="lg" asChild>
+              <ScrollLink
+                to="contact"
+                spy={true}
+                smooth={true}
+                offset={-50}
+                duration={500}
+              >
+                Get in Touch
+              </ScrollLink>
+            </Button>
+          */}
+          </motion.div>
+        </div>
+
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center">
+          <ScrollLink
+            to="projects"
+            spy={true}
+            smooth={true}
+            offset={-50}
+            duration={500}
+            className="inline-block animate-bounce cursor-pointer"
+          >
+            <ChevronDown className="h-8 w-8 text-muted-foreground" />
+          </ScrollLink>
         </div>
       </div>
     </section>
   );
-};
-
-export default HeroSection;
+}
