@@ -20,10 +20,10 @@ export function SocialMediaSection() {
         className="text-center mb-8"
       >
         <h2 className="section-subheading">Connect with Me</h2>
-        <h3 className="section-heading">Let's Get Social</h3>
+        <h3 className="section-heading">Let&apos;s Get Social</h3>
         <p className="max-w-2xl mx-auto text-muted-foreground">
           Follow me on social media to see my latest projects, thoughts, and
-          updates. I'm always excited to connect!
+          updates. I&apos;m always excited to connect!
         </p>
       </motion.div>
       <motion.div

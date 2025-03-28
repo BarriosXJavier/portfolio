@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
+import Link from "next/link";
 
 const projects = [
   {
@@ -94,7 +96,7 @@ export function ProjectSection() {
             viewport={{ once: true }}
           >
             <div className="aspect-video bg-muted relative overflow-hidden">
-              <img
+              <Image
                 src={project.image}
                 alt={project.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -106,13 +108,13 @@ export function ProjectSection() {
                   className="rounded-full"
                   asChild
                 >
-                  <a
+                  <Link
                     href={project.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <ExternalLink className="mr-1 h-4 w-4" /> Live Demo
-                  </a>
+                  </Link>
                 </Button>
                 <Button
                   size="sm"
@@ -120,13 +122,13 @@ export function ProjectSection() {
                   className="rounded-full"
                   asChild
                 >
-                  <a
+                  <Link
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <Github className="mr-1 h-4 w-4" /> Code
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -156,13 +158,13 @@ export function ProjectSection() {
           viewport={{ once: true }}
         >
           <Button variant="outline" size="lg" asChild>
-            <a
+            <Link
               href="https://github.com/BarriosXJavier"
               target="_blank"
               rel="noopener noreferrer"
             >
               <Github className="mr-2 h-4 w-4" /> View All Projects on GitHub
-            </a>
+            </Link>
           </Button>
         </motion.div>
       </div>

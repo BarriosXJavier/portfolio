@@ -66,7 +66,7 @@ export function Navbar() {
             offset={-50}
             duration={500}
           >
-            Let's Talk
+            Let&apos;s Talk
           </ScrollLink>
         </Button>
 
@@ -112,7 +112,7 @@ export function Navbar() {
                 duration={500}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Let's Talk
+                Let&apos;s Talk
               </ScrollLink>
             </Button>
           </div>

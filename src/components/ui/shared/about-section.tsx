@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function AboutSection() {
   return (
@@ -18,7 +19,7 @@ export function AboutSection() {
           className="relative"
         >
           <div className="aspect-square w-full max-w-md mx-auto rounded-2xl overflow-hidden">
-            <img
+            <Image
               src="/mypicture.jpeg"
               alt="Developer portrait"
               className="w-full h-full object-cover"
