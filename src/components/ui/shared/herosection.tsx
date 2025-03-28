@@ -35,8 +35,8 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Crafting digital <span className="text-primary">experiences</span>{" "}
-            with code
+            Crafting <span className="text-primary">amazing</span> web
+            experiences
           </motion.h1>
 
           <motion.p
