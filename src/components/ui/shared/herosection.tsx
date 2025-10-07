@@ -1,14 +1,15 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import { Link as ScrollLink } from 'react-scroll';
+import React, { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { Link as ScrollLink } from "react-scroll";
 
 export function HeroSection() {
-  const text = "I build modern, interactive web applications with a focus on user experience, accessibility, and performance.";
-  const [typedText, setTypedText] = useState('');
+  const text =
+    "I build modern, interactive web applications with a focus on user experience, accessibility, and performance.";
+  const [typedText, setTypedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
@@ -65,11 +66,11 @@ export function HeroSection() {
             experiences
           </motion.h1>
 
-          <p
-            className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 min-h-[120px]"
-          >
+          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 min-h-[120px]">
             {typedText}
-            {showCursor && <span className="animate-pulse text-primary">|</span>}
+            {showCursor && (
+              <span className="animate-pulse text-primary">|</span>
+            )}
           </p>
 
           <motion.div
@@ -89,9 +90,9 @@ export function HeroSection() {
                 View My Work
               </ScrollLink>
             </Button>
-            <Button variant='outline' size='lg' asChild>
+            <Button variant="outline" size="lg" asChild>
               <ScrollLink
-                to='contact'
+                to="contact"
                 spy={true}
                 smooth={true}
                 offset={-50}
@@ -119,3 +120,4 @@ export function HeroSection() {
     </section>
   );
 }
+
