@@ -41,14 +41,14 @@ export function AboutSection() {
 
           <div className="space-y-4 mb-8">
             <p>
-              Hey, I’m a developer who loves building fast, clean, and
-              good-looking stuff. Been at it for a while—turning ideas into
-              smooth, functional experiences that just feel right.
+              Hello, I’m a frontend developer who loves building fast, clean,
+              and good-looking web apps. Been at it for a while, turning ideas
+              into smooth, functional experiences that just feel right.
             </p>
             <p>
-              I’m all about that balance between performance and design. I
-              believe code should be snappy, scalable, and never get in the way.
-              If it looks good and works even better, that’s the sweet spot.
+              I believe code should be snappy, scalable, and never get in the
+              way. If it looks good and works even better, that’s the sweet
+              spot.
             </p>
             <p>
               When I’m not working, I’m probably tinkering with low-level stuff,
