@@ -22,6 +22,8 @@ export function AboutSection() {
             <Image
               src="/mypicture.jpeg"
               alt="Developer portrait"
+              width={500}
+              height={500}
               className="w-full h-full object-cover"
             />
           </div>
