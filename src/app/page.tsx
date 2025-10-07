@@ -5,10 +5,11 @@ import { SkillsSection } from "@/components/ui/shared/skills-section";
 import { SocialMediaSection } from "@/components/ui/shared/social-media-section";
 import { ProjectSection } from "@/components/ui/shared/project-section";
 import { AboutSection } from "@/components/ui/shared/about-section";
+import { BackgroundWrapper } from "@/components/ui/background-wrapper";
 
 export default function Home() {
   return (
-    <main className="bg-background">
+    <BackgroundWrapper className="bg-background">
       <Navbar />
       <HeroSection />
       <ProjectSection />
@@ -16,6 +17,6 @@ export default function Home() {
       <AboutSection />
       <SocialMediaSection />
       <Footer />
-    </main>
+    </BackgroundWrapper>
   );
 }
