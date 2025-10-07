@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
+import { MagneticButton } from "@/components/ui/micro-interactions";
 
 export function HeroSection() {
   const text =
@@ -60,10 +61,9 @@ export function HeroSection() {
             className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-balance"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Crafting <span className="text-primary">amazing</span> web
-            experiences
+            Crafting amazing web experiences
           </motion.h1>
 
           <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 min-h-[120px]">
@@ -79,7 +79,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Button size="lg" asChild>
+            <MagneticButton className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-lg text-lg font-medium">
               <ScrollLink
                 to="projects"
                 spy={true}
@@ -89,8 +89,8 @@ export function HeroSection() {
               >
                 View My Work
               </ScrollLink>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
+            </MagneticButton>
+            <MagneticButton className="border border-input bg-background hover:bg-accent hover:text-accent-foreground px-6 py-3 rounded-lg text-lg font-medium">
               <ScrollLink
                 to="contact"
                 spy={true}
@@ -100,7 +100,7 @@ export function HeroSection() {
               >
                 Get in Touch
               </ScrollLink>
-            </Button>
+            </MagneticButton>
           </motion.div>
         </div>
 
@@ -120,4 +120,3 @@ export function HeroSection() {
     </section>
   );
 }
-

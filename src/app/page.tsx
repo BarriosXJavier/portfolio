@@ -7,12 +7,20 @@ import { ProjectSection } from "@/components/ui/shared/project-section";
 import { AboutSection } from "@/components/ui/shared/about-section";
 import { BackgroundWrapper } from "@/components/ui/background-wrapper";
 
+import {
+  CursorFollower,
+  FloatingParticles,
+} from "@/components/ui/micro-interactions";
+import { EnhancedProjectSection } from "@/components/ui/enhanced-project-showcase";
+
 export default function Home() {
   return (
     <BackgroundWrapper className="bg-background">
+      <CursorFollower />
+      <FloatingParticles />
       <Navbar />
       <HeroSection />
-      <ProjectSection />
+      <EnhancedProjectSection />
       <SkillsSection />
       <AboutSection />
       <SocialMediaSection />

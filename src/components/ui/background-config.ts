@@ -1,19 +1,23 @@
 export const backgroundConfig = {
+  activeStyle: "svg-lines" as
+    | "svg-lines"
+    | "enhanced"
+    | "enhanced-css"
+    | "minimal"
+    | "none",
 
-  activeStyle: 'svg-lines' as const,
-  
   svgLines: {
-    density: 'medium' as const,
+    density: "medium" as const,
     opacity: 0.3,
     animationDuration: 25,
     strokeWidth: 0.5,
   },
-  
+
   enhanced: {
-    intensity: 'subtle' as const, 
-    style: 'flowing' as const,
+    intensity: "subtle" as const,
+    style: "flowing" as const,
   },
-  
+
   performance: {
     reducedMotionOnMobile: true,
     disableOnSlowDevices: false,
@@ -26,7 +30,7 @@ export const themeOverrides = {
       opacity: 0.4,
     },
     enhanced: {
-      intensity: 'medium' as const,
+      intensity: "medium" as const,
     },
   },
   light: {
@@ -34,7 +38,7 @@ export const themeOverrides = {
       opacity: 0.2,
     },
     enhanced: {
-      intensity: 'subtle' as const,
+      intensity: "subtle" as const,
     },
   },
 };
