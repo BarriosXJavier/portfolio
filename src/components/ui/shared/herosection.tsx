@@ -1,12 +1,38 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
-import { Link as ScrollLink } from "react-scroll";
+import React, { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
+import { Link as ScrollLink } from 'react-scroll';
 
 export function HeroSection() {
+  const text = "I build modern, interactive web applications with a focus on user experience, accessibility, and performance.";
+  const [typedText, setTypedText] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    let intervalId: ReturnType<typeof setInterval>;
+    const timeoutId = setTimeout(() => {
+      let i = 0;
+      intervalId = setInterval(() => {
+        setTypedText(text.slice(0, i));
+        i++;
+        if (i > text.length) {
+          clearInterval(intervalId);
+          setShowCursor(false);
+        }
+      }, 50);
+    }, 500);
+
+    return () => {
+      clearTimeout(timeoutId);
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [text]);
+
   return (
     <section
       id="hero"
@@ -25,7 +51,7 @@ export function HeroSection() {
             transition={{ duration: 0.5 }}
           >
             <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-              Full-Stack Developer
+              Frontend Developer
             </span>
           </motion.div>
 
@@ -39,15 +65,12 @@ export function HeroSection() {
             experiences
           </motion.h1>
 
-          <motion.p
-            className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+          <p
+            className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 min-h-[120px]"
           >
-            I build modern, interactive web applications with a focus on user
-            experience, accessibility, and performance.
-          </motion.p>
+            {typedText}
+            {showCursor && <span className="animate-pulse text-primary">|</span>}
+          </p>
 
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
@@ -66,9 +89,9 @@ export function HeroSection() {
                 View My Work
               </ScrollLink>
             </Button>
-            {/*<Button variant="outline" size="lg" asChild>
+            <Button variant='outline' size='lg' asChild>
               <ScrollLink
-                to="contact"
+                to='contact'
                 spy={true}
                 smooth={true}
                 offset={-50}
@@ -77,7 +100,6 @@ export function HeroSection() {
                 Get in Touch
               </ScrollLink>
             </Button>
-          */}
           </motion.div>
         </div>
 
