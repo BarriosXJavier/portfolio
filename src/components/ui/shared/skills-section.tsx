@@ -97,9 +97,9 @@ export function SkillsSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
               viewport={{ once: true }}
-              className="bg-secondary hover:bg-primary/10 px-4 py-2 rounded-lg transition-colors duration-300"
+              className="flex items-center gap-2 bg-secondary hover:bg-primary/10 px-4 py-2 rounded-lg transition-colors duration-300"
             >
-              {tool}
+              <span>{tool}</span>
             </motion.div>
           ))}
         </div>
