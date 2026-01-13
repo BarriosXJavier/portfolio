@@ -9,8 +9,15 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "My portfolio",
-  description: "My portfolio site",
+  title: "David Njoroge | Frontend Engineer",
+  description: "Frontend Engineer building high-performance web applications with TypeScript and Next.js. Based in Nairobi, Kenya.",
+  keywords: ["Frontend Engineer", "Web Developer", "React", "Next.js", "TypeScript", "Nairobi", "Kenya"],
+  authors: [{ name: "David Njoroge" }],
+  openGraph: {
+    title: "David Njoroge | Frontend Engineer",
+    description: "Frontend Engineer building high-performance web applications with TypeScript and Next.js.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -27,6 +34,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          {/* Skip to main content link for keyboard users */}
+          <a
+            href="#hero"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:outline-none"
+          >
+            Skip to main content
+          </a>
           {children}
         </ThemeProvider>
       </body>

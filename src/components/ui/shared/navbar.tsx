@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Sun, Moon } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
+import { useTheme } from "next-themes";
 
 const navItems = [
   { name: "Home", to: "hero", offset: -100 },
@@ -15,14 +16,20 @@ const navItems = [
 ];
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+  { icon: Github, href: "https://github.com/BarriosXJavier", label: "GitHub" },
+  { icon: Linkedin, href: "https://linkedin.com/in/davidm-njoroge", label: "LinkedIn" },
+  { icon: Mail, href: "mailto:muriithid05@gmail.com", label: "Email" },
 ];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { setTheme, resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,23 +52,27 @@ export function Navbar() {
     };
   }, [mobileMenuOpen]);
 
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
+
   return (
     <header
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-500",
         isScrolled
-          ? "py-3 bg-background/60 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/5"
+          ? "py-3 bg-background/60 backdrop-blur-xl border-b border-foreground/10 shadow-lg shadow-black/5"
           : "py-5 bg-transparent",
       )}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <div className="flex items-center justify-between">
+        <div className="grid grid-cols-3 items-center">
           {/* Logo - Left aligned */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex-shrink-0"
+            className="flex-shrink-0 justify-self-start"
           >
             <ScrollLink
               to="hero"
@@ -89,9 +100,9 @@ export function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2"
+            className="hidden md:flex items-center justify-center"
           >
-            <div className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-foreground/5 backdrop-blur-sm border border-white/10">
+            <div className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-foreground/5 backdrop-blur-sm border border-foreground/10">
               {navItems.map((item, index) => (
                 <ScrollLink
                   key={item.name}
@@ -119,12 +130,12 @@ export function Navbar() {
             </div>
           </motion.nav>
 
-          {/* Social Icons - Right aligned */}
+          {/* Social Icons & Theme Toggle - Right aligned */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="hidden md:flex items-center gap-2"
+            className="hidden md:flex items-center gap-2 justify-self-end"
           >
             {socialLinks.map((social, index) => (
               <motion.a
@@ -140,7 +151,7 @@ export function Navbar() {
                   "relative p-2.5 rounded-full",
                   "text-muted-foreground hover:text-foreground",
                   "bg-foreground/5 hover:bg-foreground/10",
-                  "border border-transparent hover:border-white/10",
+                  "border border-transparent hover:border-foreground/10",
                   "transition-all duration-300",
                   "group",
                 )}
@@ -149,6 +160,50 @@ export function Navbar() {
                 <span className="absolute inset-0 rounded-full bg-primary/20 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-300" />
               </motion.a>
             ))}
+            
+            {/* Theme Toggle */}
+            {mounted && (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.6 }}
+                onClick={toggleTheme}
+                aria-label="Toggle theme"
+                className={cn(
+                  "relative p-2.5 rounded-full",
+                  "text-muted-foreground hover:text-foreground",
+                  "bg-foreground/5 hover:bg-foreground/10",
+                  "border border-transparent hover:border-foreground/10",
+                  "transition-all duration-300",
+                  "group",
+                )}
+              >
+                <AnimatePresence mode="wait">
+                  {resolvedTheme === "dark" ? (
+                    <motion.div
+                      key="sun"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Sun className="w-4 h-4" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="moon"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Moon className="w-4 h-4" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                <span className="absolute inset-0 rounded-full bg-primary/20 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-300" />
+              </motion.button>
+            )}
           </motion.div>
 
           {/* Mobile Menu Button */}
@@ -159,7 +214,7 @@ export function Navbar() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={cn(
               "md:hidden relative w-10 h-10 rounded-xl flex items-center justify-center",
-              "bg-foreground/5 hover:bg-foreground/10 border border-white/10",
+              "bg-foreground/5 hover:bg-foreground/10 border border-foreground/10",
               "transition-colors duration-300",
             )}
             aria-label="Toggle menu"
@@ -242,7 +297,7 @@ export function Navbar() {
                 ))}
               </nav>
 
-              {/* Mobile Social Links */}
+              {/* Mobile Social Links & Theme Toggle */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -266,13 +321,37 @@ export function Navbar() {
                         "p-4 rounded-2xl",
                         "text-foreground",
                         "bg-foreground/5 hover:bg-foreground/10",
-                        "border border-white/10",
+                        "border border-foreground/10",
                         "transition-all duration-300",
                       )}
                     >
                       <social.icon className="w-6 h-6" />
                     </motion.a>
                   ))}
+                  
+                  {/* Mobile Theme Toggle */}
+                  {mounted && (
+                    <motion.button
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 0.7 }}
+                      onClick={toggleTheme}
+                      aria-label="Toggle theme"
+                      className={cn(
+                        "p-4 rounded-2xl",
+                        "text-foreground",
+                        "bg-foreground/5 hover:bg-foreground/10",
+                        "border border-foreground/10",
+                        "transition-all duration-300",
+                      )}
+                    >
+                      {resolvedTheme === "dark" ? (
+                        <Sun className="w-6 h-6" />
+                      ) : (
+                        <Moon className="w-6 h-6" />
+                      )}
+                    </motion.button>
+                  )}
                 </div>
               </motion.div>
             </motion.div>

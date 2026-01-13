@@ -1,118 +1,153 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
 
+const FloatingOrb = ({ delay, size, position }: { delay: number; size: string; position: string }) => (
+  <motion.div
+    className={`absolute ${position} ${size} rounded-full bg-gradient-to-br from-primary/30 to-primary/5 blur-3xl`}
+    animate={{
+      y: [0, -30, 0],
+      scale: [1, 1.1, 1],
+      opacity: [0.3, 0.5, 0.3],
+    }}
+    transition={{
+      duration: 8,
+      delay,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+  />
+);
+
 export function HeroSection() {
-  const text =
-    "I build modern, interactive web applications with a focus on user experience, accessibility, and performance.";
-  const [typedText, setTypedText] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
+  const containerVariants = useMemo(() => ({
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  }), []);
 
-  useEffect(() => {
-    let intervalId: ReturnType<typeof setInterval>;
-    const timeoutId = setTimeout(() => {
-      let i = 0;
-      intervalId = setInterval(() => {
-        setTypedText(text.slice(0, i));
-        i++;
-        if (i > text.length) {
-          clearInterval(intervalId);
-          setShowCursor(false);
-        }
-      }, 50);
-    }, 500);
-
-    return () => {
-      clearTimeout(timeoutId);
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [text]);
+  const itemVariants = useMemo(() => ({
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.4, 0.25, 1],
+      },
+    },
+  }), []);
 
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20"
     >
-      <div className="container max-w-5xl mx-auto px-8 py-12 relative z-10">
-        <div className="text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-              Frontend Developer
-            </span>
-          </motion.div>
+      {/* Animated background orbs */}
+      <FloatingOrb delay={0} size="w-[500px] h-[500px]" position="top-20 -left-64" />
+      <FloatingOrb delay={2} size="w-[400px] h-[400px]" position="bottom-20 -right-48" />
+      <FloatingOrb delay={4} size="w-[300px] h-[300px]" position="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
 
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:64px_64px]" />
+
+      <motion.div
+        className="container max-w-6xl mx-auto px-6 md:px-8 py-12 relative z-10"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <div className="text-center">
+          {/* Main heading */}
           <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-balance"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
+            variants={itemVariants}
           >
-            Crafting <span className="text-primary">amazing</span> web
-            experiences
+            <span className="block text-foreground">Hi, I&apos;m</span>
+            <span className="block mt-2 bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+              Dave
+            </span>
           </motion.h1>
 
-          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 min-h-[120px]">
-            {typedText}
-            {showCursor && (
-              <span className="animate-pulse text-primary">|</span>
-            )}
-          </p>
-
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+          {/* Subtitle */}
+          <motion.p
+            className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-4"
+            variants={itemVariants}
           >
-            <Button size="lg" asChild>
+            Frontend Engineer
+          </motion.p>
+
+          {/* Description */}
+          <motion.p
+            className="text-base md:text-lg text-muted-foreground/80 max-w-xl mx-auto mb-12"
+            variants={itemVariants}
+          >
+            Building high-performance web applications with TypeScript and Next.js, 
+            focused on delivering exceptional user experiences.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            variants={itemVariants}
+          >
+            <Button
+              size="lg"
+              className="group relative overflow-hidden px-8 py-6 text-base"
+              asChild
+            >
               <ScrollLink
                 to="projects"
                 spy={true}
                 smooth={true}
                 offset={-50}
                 duration={500}
+                className="cursor-pointer"
               >
-                View My Work
+                <span className="relative z-10">View My Work</span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary"
+                  initial={{ x: "100%" }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
               </ScrollLink>
             </Button>
-            <Button variant="outline" size="lg" asChild>
+            <Button
+              variant="outline"
+              size="lg"
+              className="group px-8 py-6 text-base border-foreground/20 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+              asChild
+            >
               <ScrollLink
-                to="contact"
+                to="social"
                 spy={true}
                 smooth={true}
                 offset={-50}
                 duration={500}
+                className="cursor-pointer"
               >
                 Get in Touch
+                <motion.span
+                  className="ml-2 inline-block"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  →
+                </motion.span>
               </ScrollLink>
             </Button>
           </motion.div>
         </div>
-
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center">
-          <ScrollLink
-            to="projects"
-            spy={true}
-            smooth={true}
-            offset={-50}
-            duration={500}
-            className="inline-block animate-bounce cursor-pointer"
-          >
-            <ChevronDown className="h-8 w-8 text-muted-foreground" />
-          </ScrollLink>
-        </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
-

@@ -85,11 +85,27 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Focus visible styles for keyboard navigation */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+
+  /* Reduced motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
 @layer components {
   .glass-panel {
-    @apply bg-white/[0.07] backdrop-blur-lg border border-white/[0.15] shadow-lg;
+    @apply bg-foreground/[0.03] backdrop-blur-lg border border-foreground/[0.1] shadow-lg;
   }
 
   .text-balance {
