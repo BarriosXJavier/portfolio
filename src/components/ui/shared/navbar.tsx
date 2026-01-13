@@ -9,7 +9,6 @@ import { useTheme } from "next-themes";
 import { socialLinks } from "@/data/social-links";
 
 const navItems = [
-  { name: "Home", to: "hero", offset: -100 },
   { name: "Projects", to: "projects", offset: -50 },
   { name: "Skills", to: "skills", offset: -50 },
   { name: "About", to: "about", offset: -50 },
