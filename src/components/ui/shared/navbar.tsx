@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Menu, X, Atom } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
 
 const navItems = [
@@ -12,6 +12,12 @@ const navItems = [
   { name: "Skills", to: "skills", offset: -50 },
   { name: "About", to: "about", offset: -50 },
   { name: "Contact", to: "social", offset: -50 },
+];
+
+const socialLinks = [
+  { icon: Github, href: "https://github.com", label: "GitHub" },
+  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
 ];
 
 export function Navbar() {
@@ -27,97 +33,252 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <header
       className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300 py-4 px-6 md:px-8",
+        "fixed top-0 w-full z-50 transition-all duration-500",
         isScrolled
-          ? "bg-background/80 backdrop-blur-lg border-b"
-          : "bg-transparent",
+          ? "py-3 bg-background/60 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/5"
+          : "py-5 bg-transparent",
       )}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="text-xl font-bold tracking-tight flex items-center gap-1.5">
-          <Atom className="h-6 w-6 text-primary" />
-        </div>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
-          {navItems.map((item) => (
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
+        <div className="flex items-center justify-between">
+          {/* Logo - Left aligned */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex-shrink-0"
+          >
             <ScrollLink
-              key={item.name}
-              to={item.to}
+              to="hero"
               spy={true}
               smooth={true}
-              offset={item.offset}
+              offset={-100}
               duration={500}
-              className="text-sm font-medium cursor-pointer hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-primary after:scale-x-0 after:origin-right after:transition-transform hover:after:scale-x-100 hover:after:origin-left"
+              className="cursor-pointer group flex items-center gap-2"
             >
-              {item.name}
+              <div className="relative">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-primary/80 to-primary/60 flex items-center justify-center shadow-lg shadow-primary/25 group-hover:shadow-primary/40 transition-shadow duration-300">
+                  <span className="text-primary-foreground font-bold text-lg">M</span>
+                </div>
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary to-primary/60 blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
+              </div>
+              <span className="hidden sm:block text-lg font-semibold tracking-tight">
+                <span className="text-foreground">Port</span>
+                <span className="text-primary">folio</span>
+              </span>
             </ScrollLink>
-          ))}
-        </nav>
+          </motion.div>
 
-        <Button className="hidden md:inline-flex cursor-pointer" asChild>
-          <ScrollLink
-            to="social"
-            spy={true}
-            smooth={true}
-            offset={-50}
-            duration={500}
+          {/* Desktop Navigation - Center aligned */}
+          <motion.nav
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2"
           >
-            Let&apos;s Talk
-          </ScrollLink>
-        </Button>
+            <div className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-foreground/5 backdrop-blur-sm border border-white/10">
+              {navItems.map((item, index) => (
+                <ScrollLink
+                  key={item.name}
+                  to={item.to}
+                  spy={true}
+                  smooth={true}
+                  offset={item.offset}
+                  duration={500}
+                  activeClass="nav-active"
+                  className={cn(
+                    "relative px-4 py-2 text-sm font-medium cursor-pointer rounded-full",
+                    "text-muted-foreground hover:text-foreground transition-colors duration-200",
+                    "hover:bg-foreground/10",
+                  )}
+                >
+                  <motion.span
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 + index * 0.05 }}
+                  >
+                    {item.name}
+                  </motion.span>
+                </ScrollLink>
+              ))}
+            </div>
+          </motion.nav>
 
-        {/* Mobile Menu Button */}
-        <Button
-          variant="ghost"
-          className="md:hidden"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? (
-            <X className="h-5 w-5" />
-          ) : (
-            <Menu className="h-5 w-5" />
-          )}
-        </Button>
+          {/* Social Icons - Right aligned */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="hidden md:flex items-center gap-2"
+          >
+            {socialLinks.map((social, index) => (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
+                className={cn(
+                  "relative p-2.5 rounded-full",
+                  "text-muted-foreground hover:text-foreground",
+                  "bg-foreground/5 hover:bg-foreground/10",
+                  "border border-transparent hover:border-white/10",
+                  "transition-all duration-300",
+                  "group",
+                )}
+              >
+                <social.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+                <span className="absolute inset-0 rounded-full bg-primary/20 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-300" />
+              </motion.a>
+            ))}
+          </motion.div>
+
+          {/* Mobile Menu Button */}
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className={cn(
+              "md:hidden relative w-10 h-10 rounded-xl flex items-center justify-center",
+              "bg-foreground/5 hover:bg-foreground/10 border border-white/10",
+              "transition-colors duration-300",
+            )}
+            aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
+          >
+            <div className="w-5 h-4 flex flex-col justify-between">
+              <motion.span
+                animate={{
+                  rotate: mobileMenuOpen ? 45 : 0,
+                  y: mobileMenuOpen ? 7 : 0,
+                }}
+                transition={{ duration: 0.3 }}
+                className="w-full h-0.5 bg-foreground rounded-full origin-left"
+              />
+              <motion.span
+                animate={{
+                  opacity: mobileMenuOpen ? 0 : 1,
+                  scaleX: mobileMenuOpen ? 0 : 1,
+                }}
+                transition={{ duration: 0.2 }}
+                className="w-full h-0.5 bg-foreground rounded-full"
+              />
+              <motion.span
+                animate={{
+                  rotate: mobileMenuOpen ? -45 : 0,
+                  y: mobileMenuOpen ? -7 : 0,
+                }}
+                transition={{ duration: 0.3 }}
+                className="w-full h-0.5 bg-foreground rounded-full origin-left"
+              />
+            </div>
+          </motion.button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-background border-b">
-          <div className="flex flex-col p-4 space-y-4">
-            {navItems.map((item) => (
-              <ScrollLink
-                key={item.name}
-                to={item.to}
-                spy={true}
-                smooth={true}
-                offset={item.offset}
-                duration={500}
-                className="text-sm font-medium py-2 hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "100vh" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+            className="md:hidden fixed inset-0 top-[60px] bg-background/95 backdrop-blur-xl z-40 overflow-hidden"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              className="flex flex-col h-full px-6 py-8"
+            >
+              {/* Mobile Nav Items */}
+              <nav className="flex flex-col gap-2">
+                {navItems.map((item, index) => (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                  >
+                    <ScrollLink
+                      to={item.to}
+                      spy={true}
+                      smooth={true}
+                      offset={item.offset}
+                      duration={500}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={cn(
+                        "block px-4 py-4 text-2xl font-medium rounded-2xl",
+                        "text-foreground/80 hover:text-foreground",
+                        "hover:bg-foreground/5",
+                        "transition-all duration-300 cursor-pointer",
+                      )}
+                    >
+                      {item.name}
+                    </ScrollLink>
+                  </motion.div>
+                ))}
+              </nav>
+
+              {/* Mobile Social Links */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.3, delay: 0.3 }}
+                className="mt-auto pb-8"
               >
-                {item.name}
-              </ScrollLink>
-            ))}
-            <Button asChild className="w-full mt-2">
-              <ScrollLink
-                to="contact"
-                spy={true}
-                smooth={true}
-                offset={-50}
-                duration={500}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Let&apos;s Talk
-              </ScrollLink>
-            </Button>
-          </div>
-        </div>
-      )}
+                <p className="text-sm text-muted-foreground mb-4 px-4">Connect with me</p>
+                <div className="flex items-center gap-3 px-4">
+                  {socialLinks.map((social, index) => (
+                    <motion.a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.label}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+                      className={cn(
+                        "p-4 rounded-2xl",
+                        "text-foreground",
+                        "bg-foreground/5 hover:bg-foreground/10",
+                        "border border-white/10",
+                        "transition-all duration-300",
+                      )}
+                    >
+                      <social.icon className="w-6 h-6" />
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

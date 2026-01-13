@@ -39,11 +39,6 @@ export function HeroSection() {
       id="hero"
       className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16"
     >
-      <div className="absolute inset-0 w-full h-full bg-grid-small-white/[0.2] -z-10" />
-      <div className="absolute inset-0 flex items-center justify-center -z-10">
-        <div className="h-[400px] w-[400px] rounded-full bg-primary/20 animate-image-glow blur-2xl" />
-      </div>
-
       <div className="container max-w-5xl mx-auto px-8 py-12 relative z-10">
         <div className="text-center">
           <motion.div
