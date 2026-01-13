@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
+import { siteConfig } from "@/config/site";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,7 +18,7 @@ export function Footer() {
           className="flex flex-col sm:flex-row items-center justify-between gap-4"
         >
           <p className="text-sm text-muted-foreground flex items-center gap-1.5">
-            Made with <Heart className="w-4 h-4 text-red-500" /> by David Njoroge
+            Made with <Heart className="w-4 h-4 text-red-500" aria-hidden="true" /> by {siteConfig.name}
           </p>
           <p className="text-sm text-muted-foreground">
             © {currentYear} All rights reserved.

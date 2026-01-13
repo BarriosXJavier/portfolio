@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, Linkedin, Mail, Sun, Moon } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
 import { useTheme } from "next-themes";
+import { socialLinks } from "@/data/social-links";
 
 const navItems = [
   { name: "Home", to: "hero", offset: -100 },
@@ -13,12 +14,6 @@ const navItems = [
   { name: "Skills", to: "skills", offset: -50 },
   { name: "About", to: "about", offset: -50 },
   { name: "Contact", to: "social", offset: -50 },
-];
-
-const socialLinks = [
-  { icon: Github, href: "https://github.com/BarriosXJavier", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com/in/davidm-njoroge", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:muriithid05@gmail.com", label: "Email" },
 ];
 
 export function Navbar() {
@@ -32,21 +27,13 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -67,7 +54,6 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         <div className="grid grid-cols-3 items-center">
-          {/* Logo - Left aligned */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -81,21 +67,21 @@ export function Navbar() {
               offset={-100}
               duration={500}
               className="cursor-pointer group flex items-center gap-2"
+              aria-label="Go to home section"
             >
               <div className="relative">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-primary/80 to-primary/60 flex items-center justify-center shadow-lg shadow-primary/25 group-hover:shadow-primary/40 transition-shadow duration-300">
-                  <span className="text-primary-foreground font-bold text-lg">M</span>
+                  <span className="text-primary-foreground font-bold text-lg">D</span>
                 </div>
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary to-primary/60 blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
               </div>
               <span className="hidden sm:block text-lg font-semibold tracking-tight">
-                <span className="text-foreground">Port</span>
-                <span className="text-primary">folio</span>
+                <span className="text-foreground">David</span>
+                <span className="text-primary">.dev</span>
               </span>
             </ScrollLink>
           </motion.div>
 
-          {/* Desktop Navigation - Center aligned */}
           <motion.nav
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -130,7 +116,6 @@ export function Navbar() {
             </div>
           </motion.nav>
 
-          {/* Social Icons & Theme Toggle - Right aligned */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -139,11 +124,11 @@ export function Navbar() {
           >
             {socialLinks.map((social, index) => (
               <motion.a
-                key={social.label}
-                href={social.href}
+                key={social.name}
+                href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={social.label}
+                aria-label={social.name}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
@@ -152,16 +137,14 @@ export function Navbar() {
                   "text-muted-foreground hover:text-foreground",
                   "bg-foreground/5 hover:bg-foreground/10",
                   "border border-transparent hover:border-foreground/10",
-                  "transition-all duration-300",
-                  "group",
+                  "transition-all duration-300 group",
                 )}
               >
                 <social.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
                 <span className="absolute inset-0 rounded-full bg-primary/20 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-300" />
               </motion.a>
             ))}
-            
-            {/* Theme Toggle */}
+
             {mounted && (
               <motion.button
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -174,8 +157,7 @@ export function Navbar() {
                   "text-muted-foreground hover:text-foreground",
                   "bg-foreground/5 hover:bg-foreground/10",
                   "border border-transparent hover:border-foreground/10",
-                  "transition-all duration-300",
-                  "group",
+                  "transition-all duration-300 group",
                 )}
               >
                 <AnimatePresence mode="wait">
@@ -206,14 +188,13 @@ export function Navbar() {
             )}
           </motion.div>
 
-          {/* Mobile Menu Button */}
           <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={cn(
-              "md:hidden relative w-10 h-10 rounded-xl flex items-center justify-center",
+              "md:hidden relative w-10 h-10 rounded-xl flex items-center justify-center justify-self-end",
               "bg-foreground/5 hover:bg-foreground/10 border border-foreground/10",
               "transition-colors duration-300",
             )}
@@ -222,26 +203,17 @@ export function Navbar() {
           >
             <div className="w-5 h-4 flex flex-col justify-between">
               <motion.span
-                animate={{
-                  rotate: mobileMenuOpen ? 45 : 0,
-                  y: mobileMenuOpen ? 7 : 0,
-                }}
+                animate={{ rotate: mobileMenuOpen ? 45 : 0, y: mobileMenuOpen ? 7 : 0 }}
                 transition={{ duration: 0.3 }}
                 className="w-full h-0.5 bg-foreground rounded-full origin-left"
               />
               <motion.span
-                animate={{
-                  opacity: mobileMenuOpen ? 0 : 1,
-                  scaleX: mobileMenuOpen ? 0 : 1,
-                }}
+                animate={{ opacity: mobileMenuOpen ? 0 : 1, scaleX: mobileMenuOpen ? 0 : 1 }}
                 transition={{ duration: 0.2 }}
                 className="w-full h-0.5 bg-foreground rounded-full"
               />
               <motion.span
-                animate={{
-                  rotate: mobileMenuOpen ? -45 : 0,
-                  y: mobileMenuOpen ? -7 : 0,
-                }}
+                animate={{ rotate: mobileMenuOpen ? -45 : 0, y: mobileMenuOpen ? -7 : 0 }}
                 transition={{ duration: 0.3 }}
                 className="w-full h-0.5 bg-foreground rounded-full origin-left"
               />
@@ -250,7 +222,6 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -267,7 +238,6 @@ export function Navbar() {
               transition={{ duration: 0.3, delay: 0.1 }}
               className="flex flex-col h-full px-6 py-8"
             >
-              {/* Mobile Nav Items */}
               <nav className="flex flex-col gap-2">
                 {navItems.map((item, index) => (
                   <motion.div
@@ -297,7 +267,6 @@ export function Navbar() {
                 ))}
               </nav>
 
-              {/* Mobile Social Links & Theme Toggle */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -309,27 +278,24 @@ export function Navbar() {
                 <div className="flex items-center gap-3 px-4">
                   {socialLinks.map((social, index) => (
                     <motion.a
-                      key={social.label}
-                      href={social.href}
+                      key={social.name}
+                      href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={social.label}
+                      aria-label={social.name}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
                       className={cn(
-                        "p-4 rounded-2xl",
-                        "text-foreground",
+                        "p-4 rounded-2xl text-foreground",
                         "bg-foreground/5 hover:bg-foreground/10",
-                        "border border-foreground/10",
-                        "transition-all duration-300",
+                        "border border-foreground/10 transition-all duration-300",
                       )}
                     >
                       <social.icon className="w-6 h-6" />
                     </motion.a>
                   ))}
-                  
-                  {/* Mobile Theme Toggle */}
+
                   {mounted && (
                     <motion.button
                       initial={{ opacity: 0, scale: 0.8 }}
@@ -338,11 +304,9 @@ export function Navbar() {
                       onClick={toggleTheme}
                       aria-label="Toggle theme"
                       className={cn(
-                        "p-4 rounded-2xl",
-                        "text-foreground",
+                        "p-4 rounded-2xl text-foreground",
                         "bg-foreground/5 hover:bg-foreground/10",
-                        "border border-foreground/10",
-                        "transition-all duration-300",
+                        "border border-foreground/10 transition-all duration-300",
                       )}
                     >
                       {resolvedTheme === "dark" ? (
